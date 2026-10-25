@@ -136,18 +136,9 @@ transit-fare-engine/
     ├── main/
     │   ├── java/com/transit/fareengine/
     │   │   ├── FareEngineApplication.java
-    │   │   ├── model/
-    │   │   ├── service/
-    │   │   ├── repository/
-    │   │   ├── pricing/
-    │   │   ├── csv/
-    │   │   ├── exception/
-    │   │   └── util/
     │   └── resources/
     └── test/java/com/transit/fareengine/
-        ├── service/
-        ├── pricing/
-        └── integration/
+        ├── FareEngineApplicationTest.java 
 ```
 
 The package directories are scaffolded for the implementation; sample CSV files
