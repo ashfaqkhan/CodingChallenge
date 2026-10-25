@@ -126,72 +126,32 @@ mvn test
 ---
 
 ## Project Structure
+
 ```text
-tansit-fare-engine
-│
+transit-fare-engine/
 ├── README.md
 ├── pom.xml
-├── sample-data
-│   ├── taps.csv
-│   └── trips.csv
-│
-└── src
-├── main
-│   ├── java
-│   │   └── com
-│   │       └── transit
-│   │           └── fareengine
-│   │
-│   │               ├── FareEngineApplication.java
-│   │               │
-│   │               ├── model (Domain entities and enums)
-│   │               │   ├──
-│   │               │   ├──
-│   │               │   ├──
-│   │               │   ├──
-│   │               │   └──
-│   │               │
-│   │               ├── service (Core business logic for trip matching and fare calculation)
-│   │               │   ├──
-│   │               │   ├──
-│   │               │   └──
-│   │               │
-│   │               ├── repository(Storage and lookup of active journeys during processing)
-│   │               │   └──
-│   │               │
-│   │               ├── pricing(Fare matrix and pricing rules)
-│   │               │   └──
-│   │               │
-│   │               ├── csv(CSV input and output adapters)
-│   │               │   ├──
-│   │               │   └──
-│   │               │
-│   │               ├── exception(Custom application exceptions)
-│   │               │   ├──
-│   │               │   └──
-│   │               │
-│   │               └── util (Shared utility classes)
-│   │                   └──
-│   │
-│   └── resources
-│
-└── test
-└── java
-└── com
-└── transit
-└── fareengine
-│
-├── service
-│   ├──
-│   ├──
-│   └──
-│
-├── pricing
-│   └──
-│
-└── integration
-└──
+├── sample-data/
+└── src/
+    ├── main/
+    │   ├── java/com/transit/fareengine/
+    │   │   ├── FareEngineApplication.java
+    │   │   ├── model/
+    │   │   ├── service/
+    │   │   ├── repository/
+    │   │   ├── pricing/
+    │   │   ├── csv/
+    │   │   ├── exception/
+    │   │   └── util/
+    │   └── resources/
+    └── test/java/com/transit/fareengine/
+        ├── service/
+        ├── pricing/
+        └── integration/
 ```
+
+The package directories are scaffolded for the implementation; sample CSV files
+will be added with the input and output formats.
 
 ---
 
