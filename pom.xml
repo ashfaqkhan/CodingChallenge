@@ -26,6 +26,7 @@
 
     <junit.version>5.11.4</junit.version>
     <assertj.version>3.26.3</assertj.version>
+    <lombok.version>1.18.30</lombok.version>
 </properties>
 
 <dependencies>
@@ -46,6 +47,14 @@
         <scope>test</scope>
     </dependency>
 
+    <!-- Project Lombok for eliminating boilerplate code -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version> <!-- Uses a stable version for modern JDKs -->
+        <scope>provided</scope>
+    </dependency>
+
 </dependencies>
 
 <build>
@@ -57,6 +66,13 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.13.0</version>
             <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>${lombok.version}</version>
+                    </path>
+                </annotationProcessorPaths>
                 <release>${java.version}</release>
             </configuration>
         </plugin>
