@@ -112,7 +112,7 @@ mvn clean package
 ### Run
 
 ```bash
-java -jar target/littlepay-challenge.jar taps.csv trips.csv
+java -jar target/transit-fare-engine.jar taps.csv trips.csv
 ```
 
 ---
@@ -127,7 +127,7 @@ mvn test
 
 ## Project Structure
 ```text
-tansit-tripsfare-engine
+tansit-fare-engine
 │
 ├── README.md
 ├── pom.xml
