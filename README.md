@@ -1,2 +1,204 @@
-# CodingChallenge
-Repository for LittlePay Coding Challenge
+# Littlepay Coding Challenge
+
+## Overview
+
+This application processes a stream of transit card tap events and generates a list of customer trips.
+
+Passengers tap their card when boarding a bus (Tap ON) and again when leaving the bus (Tap OFF). The application matches Tap ON and Tap OFF events, determines trip status, calculates fares, and produces an output CSV containing completed trip records.
+
+The focus of the solution is correctness of trip matching, fare calculation, maintainability, and testability of the business logic.
+
+---
+
+## Business Rules
+
+### Fares
+
+| From / To | Fare |
+|------------|------|
+| Stop1 ↔ Stop2 | $3.25 |
+| Stop2 ↔ Stop3 | $5.50 |
+| Stop1 ↔ Stop3 | $7.30 |
+
+Travel in either direction costs the same amount.
+
+### Completed Trip
+
+A trip is considered **COMPLETED** when:
+
+- Passenger taps ON at one stop
+- Passenger taps OFF at a different stop
+
+Charge according to the fare matrix.
+
+### Cancelled Trip
+
+A trip is considered **CANCELLED** when:
+
+- Passenger taps ON
+- Passenger taps OFF at the same stop
+
+Charge: **$0.00**
+
+### Incomplete Trip
+
+A trip is considered **INCOMPLETE** when:
+
+- Passenger taps ON
+- No matching OFF tap exists
+
+The passenger is charged the maximum possible fare from the tap-on stop.
+
+---
+
+## Assumptions
+
+1. The input CSV file is well-formed and contains all required fields.
+2. Tap records are provided in chronological order.
+3. A passenger can only have one active trip at a time for a given PAN.
+4. A Tap OFF always corresponds to the currently active trip for the same PAN.
+5. All stops are valid and are limited to Stop1, Stop2 and Stop3.
+6. Any Tap ON without a matching Tap OFF by the end of processing is treated as an INCOMPLETE trip.
+7. The fare matrix is fixed and defined by the challenge specification.
+8. PAN values provided are test card numbers only.
+
+---
+
+## Solution Design
+
+The solution separates:
+
+- Input/Output processing
+- Trip matching logic
+- Fare calculation logic
+- Domain models
+
+High-level flow:
+
+```text
+Read Input CSV
+        |
+        v
+Process Tap Events
+        |
+        v
+Match ON/OFF Taps
+        |
+        v
+Calculate Fare
+        |
+        v
+Generate Trips
+        |
+        v
+Write Output CSV
+```
+
+---
+
+## Running the Application
+
+### Prerequisites
+
+- Java 17+
+- Maven 3.9+
+
+### Build
+
+```bash
+mvn clean package
+```
+
+### Run
+
+```bash
+java -jar target/littlepay-challenge.jar taps.csv trips.csv
+```
+
+---
+
+## Running Tests
+
+```bash
+mvn test
+```
+
+---
+
+## Project Structure
+```text
+tansit-tripsfare-engine
+│
+├── README.md
+├── pom.xml
+├── sample-data
+│   ├── taps.csv
+│   └── trips.csv
+│
+└── src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── transit
+│   │           └── fareengine
+│   │
+│   │               ├── FareEngineApplication.java
+│   │               │
+│   │               ├── model (Domain entities and enums)
+│   │               │   ├──
+│   │               │   ├──
+│   │               │   ├──
+│   │               │   ├──
+│   │               │   └──
+│   │               │
+│   │               ├── service (Core business logic for trip matching and fare calculation)
+│   │               │   ├──
+│   │               │   ├──
+│   │               │   └──
+│   │               │
+│   │               ├── repository(Storage and lookup of active journeys during processing)
+│   │               │   └──
+│   │               │
+│   │               ├── pricing(Fare matrix and pricing rules)
+│   │               │   └──
+│   │               │
+│   │               ├── csv(CSV input and output adapters)
+│   │               │   ├──
+│   │               │   └──
+│   │               │
+│   │               ├── exception(Custom application exceptions)
+│   │               │   ├──
+│   │               │   └──
+│   │               │
+│   │               └── util (Shared utility classes)
+│   │                   └──
+│   │
+│   └── resources
+│
+└── test
+└── java
+└── com
+└── transit
+└── fareengine
+│
+├── service
+│   ├──
+│   ├──
+│   └──
+│
+├── pricing
+│   └──
+│
+└── integration
+└──
+```
+
+---
+
+## Future Improvements
+- 
+- 
+- 
+- 
+- 
+- 
