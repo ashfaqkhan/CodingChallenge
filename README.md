@@ -58,10 +58,11 @@ The passenger is charged the maximum possible fare from the tap-on stop.
 3. A passenger can only have one active trip at a time for a given PAN.
 4. A Tap OFF always corresponds to the currently active trip for the same PAN.
 5. A TAP OFF event without a corresponding active TAP ON event for the same PAN is considered INVALID input.
-6. All stops are valid and are limited to Stop1, Stop2 and Stop3.
+6. All stops referenced by input tap events are valid and supported by the configured fare matrix.
 7. Any Tap ON without a matching Tap OFF by the end of processing is treated as an INCOMPLETE trip.
 8. The fare matrix is fixed and defined by the challenge specification.
 9. PAN values provided are test card numbers only.
+10. The first tap event encountered for a PAN must be a TAP ON event. Any first occurrence of a PAN as a TAP OFF event is considered invalid input.
 
 ---
 
