@@ -36,6 +36,7 @@ public final class FareEngineApplication {
         processor.process(
                 Path.of(args[0]),
                 Path.of(args[1]));
+        LOGGER.info("Fare Engine Completed");
     }
 
     /**

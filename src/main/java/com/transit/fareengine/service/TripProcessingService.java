@@ -6,6 +6,7 @@ import com.transit.fareengine.model.Trip;
 import com.transit.fareengine.model.TripStatus;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,7 +131,7 @@ public class TripProcessingService {
         trip.setDurationSecs(ChronoUnit.SECONDS.between(tapOn.getDateTimeUtc(), tapOff.getDateTimeUtc()));
         trip.setFromStopId(tapOn.getStopId());
         trip.setToStopId(tapOff.getStopId());
-        trip.setChargeAmount(fareCalculationService.calculateFare(tapOn.getStopId(), tapOff.getStopId()));
+        trip.setChargeAmount(BigDecimal.ZERO);
         trip.setCompanyId(tapOn.getCompanyId());
         trip.setBusId(tapOn.getBusId());
         trip.setPan(tapOn.getPan());
@@ -147,7 +148,7 @@ public class TripProcessingService {
         Trip trip = new Trip();
         trip.setStarted(existingTap.getDateTimeUtc());
         trip.setFromStopId(existingTap.getStopId());
-        trip.setChargeAmount(fareCalculationService.calculateFare(existingTap.getStopId(), existingTap.getStopId()));
+        trip.setChargeAmount(fareCalculationService.calculateMaxFare(existingTap.getStopId()));
         trip.setCompanyId(existingTap.getCompanyId());
         trip.setBusId(existingTap.getBusId());
         trip.setPan(existingTap.getPan());

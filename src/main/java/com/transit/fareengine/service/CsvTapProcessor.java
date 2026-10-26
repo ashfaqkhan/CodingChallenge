@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -64,7 +65,7 @@ public class CsvTapProcessor {
     private TripProcessingService tripProcessingService;
 
     private static final DateTimeFormatter
-            DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     /**
      * Processes an input tap file and generates the corresponding trip file.
@@ -173,17 +174,22 @@ public class CsvTapProcessor {
      */
     private String tripToCsvLine(Trip trip) {
         return String.format(
+                Locale.ROOT,
                 "%s,%s,%d,%s,%s,%.2f,%s,%s,%s,%s",
-                trip.getStarted(),
-                trip.getFinished(),
+                formatDateTime(trip.getStarted()),
+                formatDateTime(trip.getFinished()),
                 trip.getDurationSecs(),
                 trip.getFromStopId(),
-                trip.getToStopId(),
+                trip.getToStopId() == null ? "" : trip.getToStopId(),
                 trip.getChargeAmount(),
                 trip.getCompanyId(),
                 trip.getBusId(),
                 trip.getPan(),
                 trip.getStatus());
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        return dateTime == null ? "" : DATE_TIME_FORMATTER.format(dateTime);
     }
 
     /**
