@@ -5,6 +5,10 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a trip in the transit fare engine system.
+ * This class contains information about a trip, including its start and end times, duration, stops, charge amount, company ID, bus ID, PAN (Primary Account Number), and status.
+ */
 @Data
 public class Trip {
 
