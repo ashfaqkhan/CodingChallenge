@@ -114,7 +114,7 @@ mvn clean package
 ### Run
 
 ```bash
-java -jar target/transit-fare-engine.jar taps.csv trips.csv
+java -jar target/transit-fare-engine-1.0.0.jar sample-data/taps.csv sample-data/trips.csv
 ```
 
 ---
@@ -124,6 +124,9 @@ java -jar target/transit-fare-engine.jar taps.csv trips.csv
 ```bash
 mvn test
 ```
+
+`mvn test` runs the unit tests. Run `mvn verify` to run both unit and integration
+tests, including a full CSV-to-trips processing scenario.
 
 ---
 
@@ -138,9 +141,17 @@ transit-fare-engine/
     ├── main/
     │   ├── java/com/transit/fareengine/
     │   │   ├── FareEngineApplication.java
+    │   │   ├── model/
+    │   │   ├── service/
+    │   │   └── exception/
     │   └── resources/
     └── test/java/com/transit/fareengine/
-        ├── FareEngineApplicationTest.java 
+        ├── FareEngineApplicationTest.java
+        ├── service/
+        │   ├── FareCalculationServiceTest.java
+        │   └── TripProcessingServiceTest.java
+        └── integration/
+            └── CsvTapProcessorIT.java
 ```
 
 The package directories are scaffolded for the implementation; sample CSV files
@@ -149,9 +160,6 @@ will be added with the input and output formats.
 ---
 
 ## Future Improvements
-- 
-- 
-- 
-- 
-- 
-- 
+- Externalize fare rules and routes into a configuration file or database to simplify maintenance and support fare changes without code modifications.
+- Replace in-memory trip tracking with a persistent store for handling very large datasets and enabling fault tolerance.
+- Increase test coverage with additional performance, boundary, and negative test scenarios.
